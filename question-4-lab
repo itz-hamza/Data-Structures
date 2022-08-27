@@ -1,0 +1,109 @@
+// takeout max min from an array, one by one, and store it in another
+
+#include <iostream>
+using namespace std;
+
+/* functions that i will use
+	input
+	max	
+	min
+	sort the zeros out and adjust the total size
+	making the total size a global as to prevent going out of bounds
+*/
+
+int SIZE = 10;
+
+void input(int*); // passing array and size
+int max(int*); // passing array and size; will zero out the index and turn max to 0
+int min(int*); // passing array and size; will zero out the index and turn min to 10000
+void sort(int*,int);// would kick out the zeros
+void output(int*,int);
+int main()
+{	
+	
+	int loopLimiter = SIZE;  //since we will be changing the size
+	// making a dynamic array
+	
+	int* dynamicArray1 = new int[SIZE];
+	int* dynamicArray2 = new int[SIZE];
+	
+	// taking input in the dynamic array 1
+	
+	input(dynamicArray1);
+	
+	for(int i = 0; i<loopLimiter;)
+	{
+		dynamicArray2[i] = max(dynamicArray1); //allocating max to dm2
+		i++;
+		
+		dynamicArray2[i] = min(dynamicArray1);
+		i++;
+	}
+	
+	output(dynamicArray2,loopLimiter);
+}
+
+void input(int* arr1)
+{	
+	cout<<"Taking input of the array"<<endl;
+	
+	for(int i=0 ; i<SIZE; i++)
+	{
+		cout<<"Enter the element at index "<< i<<endl;
+		cin>>arr1[i];
+	}
+}
+
+
+int max(int* arr1)
+{	
+	int max = 0;
+	int index;
+	
+	for(int i =0; i<SIZE; i++)
+	{
+		if(arr1[i]>max)
+		{
+			max=arr1[i];
+			index = i;
+		}
+	}
+	sort(arr1,index);
+	return max;
+}
+
+int min(int* arr1)
+{	
+	int min = 10000000;
+	int index;
+	
+	for(int i =0; i<SIZE; i++)
+	{
+		if(arr1[i] < min)
+		{
+		 	min=arr1[i];
+			index = i;
+		}			
+	}
+sort(arr1,index);
+return min;
+}
+
+void sort(int* arr1,int index)
+{
+	// swap
+	arr1[index]=arr1[SIZE-1];
+	arr1[SIZE]=0;
+	SIZE--;
+}
+
+void output(int* arr2,int size)
+{	
+	cout<<"The output of the array"<<endl<<"[";
+	
+	for(int i=0 ; i<size; i++)
+	{
+		cout<<arr2[i]<<",";
+	}
+	cout<<"]";
+}
